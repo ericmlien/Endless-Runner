@@ -2,8 +2,8 @@
 
 let config = {
     type: Phaser.AUTO,
-    width: 640,
-    height: 960,
+    width: 1200,
+    height: 720,
     scene: [ Play ],
     physics: {
         default: "arcade",
@@ -11,8 +11,8 @@ let config = {
             debug: true,
         },
     },
-}
+};
 
-let game = new Phaser.Game(config)
+let game = new Phaser.Game(config);
 
-let { width, height } = game.config
+let { width, height } = game.config;
