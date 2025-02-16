@@ -21,13 +21,39 @@ class Play extends Phaser.Scene {
         this.ball = this.physics.add.sprite(width / 5, height / 2, "ball");
         this.ball.body.setCircle(this.ball.width / 2.5).setCollideWorldBounds(true).setBounce(0.7).setDamping(true).setDrag(0.6).setOffset(6, );
 
-        this.timeConfig = {
-            fontFamily: 'Courier',
+        this.rules = this.add.text(game.config.width / 5 + 40, game.config.height / 3, "Hold click to charge your shot!\nDon't cross the left side of the screen!", {
+            fontFamily: "Courier",
             fontStyle: "bold",
-            fontSize: '28px',
-            backgroundColor: '#0398fc',
-            color: '#843605',
-            align: 'left',
+            fontSize: "28px",
+            backgroundColor: "#0398fc",
+            color: "#843605",
+            align: "center",
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        })
+        this.time.delayedCall(1500, () => {
+            this.ruleFade = this.tweens.add({
+                targets: this.rules,
+                alpha: {
+                    from: 1,
+                    to: 0,
+                },
+                ease: "Linear",
+                duration: 1000,
+                repeat: 0,
+                yoyo: false,
+            });
+        });
+
+        this.timeConfig = {
+            fontFamily: "Courier",
+            fontStyle: "bold",
+            fontSize: "28px",
+            backgroundColor: "#0398fc",
+            color: "#843605",
+            align: "left",
             padding: {
                 top: 5,
                 bottom: 5,
@@ -90,6 +116,7 @@ class Play extends Phaser.Scene {
         });
        
         this.music = this.sound.add("bowlingSong").setVolume(0.0);
+        this.music.loop = true;
         this.music.play();
         this.musicFadeIn = this.tweens.add({
             targets: this.music,
@@ -107,7 +134,7 @@ class Play extends Phaser.Scene {
 
         this.swing = this.sound.add("swing").setVolume(0.2);
 
-        this.windup = this.sound.add("windup").setVolume(0.2);
+        this.windup = this.sound.add("windup").setVolume(0.1);
         
         this.shotCharge = 0;
         this.displayCharge = 0;
@@ -242,7 +269,7 @@ class Play extends Phaser.Scene {
     }
 
     incrementDifficulty() {
-        if (this.SCALING_MAX < this.ROCK_SCALE_MAX * 4){
+        if (this.SCALING_MAX < this.ROCK_SCALE_MAX * 3){
             this.ROCK_SCALE *= 1.1;
             this.SCALING_MAX = this.ROCK_SCALE * 5;
             this.SCALING_MIN = this.ROCK_SCALE * -5;

@@ -9,12 +9,13 @@ class GameOver extends Phaser.Scene {
     create() {
         this.background = this.add.tileSprite(640, 360, 1280, 400, "grass").setScale(1.8);
         this.music = this.sound.add("results").setVolume(0.0);
+        this.music.loop = true;
         this.music.play();
         this.musicFadeIn = this.tweens.add({
             targets: this.music,
             volume: {
                 from: 0,
-                to: 0.2,
+                to: 0.3,
             },
             ease: "Linear",
             duration: 500,
@@ -174,7 +175,7 @@ class GameOver extends Phaser.Scene {
         this.musicFadeOut = this.tweens.add({
             targets: this.music,
             volume: {
-                from: 0.2,
+                from: 0.3,
                 to: 0,
             },
             ease: "Linear",

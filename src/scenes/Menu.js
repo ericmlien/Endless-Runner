@@ -16,6 +16,7 @@ class Menu extends Phaser.Scene {
         this.load.audio("swing", "./assets/golf club swing.mp3");
         this.load.audio("windup", "./assets/windup.wav");
         this.load.audio("results", "./assets/Wii Sports Bowling Results.mp3");
+        this.load.audio("credits", "./assets/Wii Sports Golf Course Select.mp3");
         this.load.spritesheet("rollSheet", "./assets/ball-spritesheet.png",{
             frameWidth: 64,
             frameHeight: 64,
@@ -66,7 +67,7 @@ class Menu extends Phaser.Scene {
             },
         };
         
-        this.playButton = this.add.text(game.config.width / 4, game.config.height + 100, "start", startConfig);
+        this.playButton = this.add.text(game.config.width / 5, game.config.height + 100, "start", startConfig);
         this.playIn = this.tweens.add({
             targets: this.playButton,
             y: {
@@ -90,7 +91,34 @@ class Menu extends Phaser.Scene {
         this.playButton.on("pointerdown", () => {
             this.timer = this.time.delayedCall(1000, () => {this.scene.start("playScene")});
             this.transitionOut();
-        })
+        });
+
+        this.creditsButton = this.add.text(game.config.width - (game.config.width / 2) + 40, game.config.height + 100, "credits", startConfig);
+        this.creditsIn = this.tweens.add({
+            targets: this.creditsButton,
+            y: {
+                from: game.config.height + 100,
+                to: game.config.height - (game.config.height / 4),
+            },
+            ease: "Cubic",
+            duration: 1000,
+            repeat: 0,
+            yoyo: false,
+        });
+        
+        this.creditsButton.setInteractive();
+        this.creditsButton.on("pointerover", () => {
+            this.creditsButton.setBackgroundColor("#da5125");
+            this.creditsButton.setColor("#ffff8e");
+        });
+        this.creditsButton.on("pointerout", () => {
+            this.creditsButton.setBackgroundColor("#0398FC");
+            this.creditsButton.setColor("#843605");
+        });
+        this.creditsButton.on("pointerdown", () => {
+            this.timer = this.time.delayedCall(1000, () => {this.scene.start("creditsScene")});
+            this.transitionOut();
+        });
     }
 
     update() {
@@ -126,6 +154,17 @@ class Menu extends Phaser.Scene {
         });
         this.playOut = this.tweens.add({
             targets: this.playButton,
+            y: {
+                from: game.config.height - (game.config.height / 4),
+                to: game.config.height + 100,
+            },
+            ease: "Cubic",
+            duration: 1000,
+            repeat: 0,
+            yoyo: false,
+        });
+        this.creditsOut = this.tweens.add({
+            targets: this.creditsButton,
             y: {
                 from: game.config.height - (game.config.height / 4),
                 to: game.config.height + 100,
