@@ -178,7 +178,7 @@ class Play extends Phaser.Scene {
             });
             this.SCROLL_SPEED = 40 * 0.005;
             this.holding = true;
-            this.ball.body.setDrag(0.02);
+            this.ball.body.setDrag(0.01);
         });
 
         this.input.on("pointerup", (pointer) => {
